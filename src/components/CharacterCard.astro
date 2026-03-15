@@ -1,0 +1,148 @@
+---
+import type { Character } from '../data/characters';
+
+interface Props {
+  character: Character;
+  delayIndex: number;
+}
+
+const { character, delayIndex } = Astro.props;
+const delayClass = `delay-${(delayIndex % 3) * 100}`;
+---
+
+<div class={`character-card glass-panel animate-fade-in-up ${delayClass}`} style={`--accent: ${character.accentColor}`}>
+  <div class="card-image-wrapper">
+    <img src={character.imageUrl} alt={character.name} class="character-image" loading="lazy" />
+    <div class="card-overlay"></div>
+  </div>
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="character-name">{character.name}</h3>
+      <span class="korean-name">{character.koreanName}</span>
+    </div>
+    
+    <div class="character-meta">
+      <span class="badge rank">{character.rank}</span>
+      <span class="badge class">{character.hunterClass}</span>
+    </div>
+    
+    <p class="character-desc">{character.description}</p>
+  </div>
+</div>
+
+<style>
+  .character-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+  }
+
+  /* Internal glow based on accent color */
+  .character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent);
+    z-index: 10;
+  }
+
+  .character-card:hover {
+    box-shadow: 0 0 30px rgba(0,0,0,0.6), 0 0 15px var(--accent);
+    border-color: var(--accent);
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .character-card:hover .character-image {
+    transform: scale(1.08);
+  }
+
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, var(--bg-card) 0%, transparent 100%);
+    z-index: 2;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    z-index: 3;
+    position: relative;
+    background: var(--bg-card);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+  }
+
+  .character-name {
+    font-size: 1.5rem;
+    color: var(--text-main);
+  }
+
+  .korean-name {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .character-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .badge.rank {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .badge.class {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .character-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+</style>

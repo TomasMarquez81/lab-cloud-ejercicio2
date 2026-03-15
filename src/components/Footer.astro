@@ -1,0 +1,29 @@
+---
+// Footer.astro
+---
+<footer class="footer">
+  <div class="container footer-content">
+    <p>&copy; {new Date().getFullYear()} Solo Leveling - Página Fan No Oficial. Todos los derechos reservados.</p>
+    <p class="disclaimer">Creado con Astro. Los datos y personajes pertenecen a Chugong, DUBU (REDICE STUDIO) y D&C Webtoon Biz.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 3rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    background: rgba(9, 9, 11, 0.95);
+    text-align: center;
+  }
+
+  .footer-content p {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .disclaimer {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+</style>
